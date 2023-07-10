@@ -29,3 +29,4 @@
 
 from .gdn import *
 from .layers import *
+from .swin import *
