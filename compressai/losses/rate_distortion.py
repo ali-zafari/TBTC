@@ -41,7 +41,7 @@ from compressai.registry import register_criterion
 class RateDistortionLoss(nn.Module):
     """Custom rate distortion loss with a Lagrangian parameter."""
 
-    def __init__(self, lmbda=0.01, metric="mse", return_type="all"):
+    def __init__(self, lmbda=None, beta=None, metric="mse", return_type="all"):
         super().__init__()
         if metric == "mse":
             self.metric = nn.MSELoss()
@@ -49,7 +49,12 @@ class RateDistortionLoss(nn.Module):
             self.metric = ms_ssim
         else:
             raise NotImplementedError(f"{metric} is not implemented!")
+
         self.lmbda = lmbda
+        self.beta = beta
+        assert self.lmbda or self.beta, "Either lambda or beta are required for the rate-distortion loss."
+        assert not (self.lmbda and self.beta), "Simultaneous usage of lambda and beta is not allowed."
+
         self.return_type = return_type
 
     def forward(self, output, target):
@@ -68,7 +73,11 @@ class RateDistortionLoss(nn.Module):
             out["mse_loss"] = self.metric(output["x_hat"], target)
             distortion = 255**2 * out["mse_loss"]
 
-        out["loss"] = self.lmbda * distortion + out["bpp_loss"]
+        if self.lmbda is not None:
+            out["loss"] = self.lmbda * distortion + out["bpp_loss"]
+        else:
+            out["loss"] = distortion + self.beta * out["bpp_loss"]
+
         if self.return_type == "all":
             return out
         else:
