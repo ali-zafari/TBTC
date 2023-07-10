@@ -35,6 +35,10 @@ from .image import (
     cheng2020_attn,
     mbt2018,
     mbt2018_mean,
+    zyc2022_conv_hyperprior,
+    zyc2022_conv_charm,
+    zyc2022_swint_hyperprior,
+    zyc2022_swint_charm,
 )
 from .pretrained import load_pretrained as load_state_dict
 from .video import ssf2020
@@ -47,6 +51,10 @@ image_models = {
     "mbt2018": mbt2018,
     "cheng2020-anchor": cheng2020_anchor,
     "cheng2020-attn": cheng2020_attn,
+    "zyc2022-conv-hyperprior": zyc2022_conv_hyperprior,
+    "zyc2022-conv-charm": zyc2022_conv_charm,
+    "zyc2022-swint-hyperprior": zyc2022_swint_hyperprior,
+    "zyc2022-swint-charm": zyc2022_swint_charm,
 }
 
 video_models = {

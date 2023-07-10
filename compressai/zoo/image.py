@@ -37,6 +37,10 @@ from compressai.models import (
     JointAutoregressiveHierarchicalPriors,
     MeanScaleHyperprior,
     ScaleHyperprior,
+    ConvHyperprior,
+    ConvChARM,
+    SwinTHyperprior,
+    SwinTChARM,
 )
 
 from .pretrained import load_pretrained
@@ -49,6 +53,10 @@ __all__ = [
     "mbt2018_mean",
     "cheng2020_anchor",
     "cheng2020_attn",
+    "zyc2022_conv_hyperprior",
+    "zyc2022_conv_charm",
+    "zyc2022_swint_hyperprior",
+    "zyc2022_swint_charm",
 ]
 
 model_architectures = {
@@ -59,6 +67,10 @@ model_architectures = {
     "mbt2018": JointAutoregressiveHierarchicalPriors,
     "cheng2020-anchor": Cheng2020Anchor,
     "cheng2020-attn": Cheng2020Attention,
+    "zyc2022-conv-hyperprior": ConvHyperprior,
+    "zyc2022-conv-charm": ConvChARM,
+    "zyc2022-swint-hyperprior": SwinTHyperprior,
+    "zyc2022-swint-charm": SwinTChARM,
 }
 
 root_url = "https://compressai.s3.amazonaws.com/models/v1"
@@ -256,6 +268,212 @@ cfgs = {
         5: (192,),
         6: (192,),
     },
+    "zyc2022-conv-hyperprior": {
+        'S': (192, 128),
+        'M': (320, 192),
+        'L': (448, 256),
+    },
+    "zyc2022-conv-charm": {
+        'S': (192, 128),
+        'M': (320, 192),
+        'L': (448, 256),
+    },
+    "zyc2022-swint-hyperprior":  {
+        'S': {
+            'g_a': {
+                'input_dim': 3,
+                'embed_dim': [96, 128, 160, 192],
+                'embed_out_dim': [128, 160, 192, None],
+                'depths': [2, 2, 6, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8]
+            },
+            'g_s': {
+                'embed_dim': [192, 160, 128, 96],
+                'embed_out_dim': [160, 128, 96, 3],
+                'depths': [2, 6, 2, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8],
+            },
+            'h_a': {
+                'input_dim': 192,
+                'embed_dim': [96, 128],
+                'embed_out_dim': [128, None],
+                'depths': [5, 1],
+                'head_dim': [32, 32],
+                'window_size': [4, 4]
+            },
+            'h_s': {
+                'embed_dim': [128, 96],
+                'embed_out_dim': [96, int(2 * 192)],
+                'depths': [1, 5],
+                'head_dim': [32, 32],
+                'window_size': [4, 4],
+            }
+        },
+        'M': {
+            'g_a': {
+                'input_dim': 3,
+                'embed_dim': [128, 192, 256, 320],
+                'embed_out_dim': [192, 256, 320, None],
+                'depths': [2, 2, 6, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8]
+            },
+            'g_s': {
+                'embed_dim': [320, 256, 192, 128],
+                'embed_out_dim': [256, 192, 128, 3],
+                'depths': [2, 6, 2, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8],
+            },
+            'h_a': {
+                'input_dim': 320,
+                'embed_dim': [192, 192],
+                'embed_out_dim': [192, None],
+                'depths': [5, 1],
+                'head_dim': [32, 32],
+                'window_size': [4, 4]
+            },
+            'h_s': {
+                'embed_dim': [192, 192],
+                'embed_out_dim': [192, int(2 * 320)],
+                'depths': [1, 5],
+                'head_dim': [32, 32],
+                'window_size': [4, 4],
+            }
+        },
+        'L': {
+            'g_a': {
+                'input_dim': 3,
+                'embed_dim': [160, 256, 352, 448],
+                'embed_out_dim': [256, 352, 448, None],
+                'depths': [2, 2, 6, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8]
+            },
+            'g_s': {
+                'embed_dim': [448, 352, 256, 160],
+                'embed_out_dim': [352, 256, 160, 3],
+                'depths': [2, 6, 2, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8],
+            },
+            'h_a': {
+                'input_dim': 448,
+                'embed_dim': [192, 256],
+                'embed_out_dim': [256, None],
+                'depths': [5, 1],
+                'head_dim': [32, 32],
+                'window_size': [4, 4]
+            },
+            'h_s': {
+                'embed_dim': [256, 192],
+                'embed_out_dim': [192, int(2 * 448)],
+                'depths': [1, 5],
+                'head_dim': [32, 32],
+                'window_size': [4, 4],
+            }
+        },
+    },
+    "zyc2022-swint-charm": {
+        'S': {
+            'g_a': {
+                'input_dim': 3,
+                'embed_dim': [96, 128, 160, 192],
+                'embed_out_dim': [128, 160, 192, None],
+                'depths': [2, 2, 6, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8]
+            },
+            'g_s': {
+                'embed_dim': [192, 160, 128, 96],
+                'embed_out_dim': [160, 128, 96, 3],
+                'depths': [2, 6, 2, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8],
+            },
+            'h_a': {
+                'input_dim': 192,
+                'embed_dim': [96, 128],
+                'embed_out_dim': [128, None],
+                'depths': [5, 1],
+                'head_dim': [32, 32],
+                'window_size': [4, 4]
+            },
+            'h_s': {
+                'embed_dim': [128, 96],
+                'embed_out_dim': [96, int(2 * 192)],
+                'depths': [1, 5],
+                'head_dim': [32, 32],
+                'window_size': [4, 4],
+            }
+        },
+        'M': {
+            'g_a': {
+                'input_dim': 3,
+                'embed_dim': [128, 192, 256, 320],
+                'embed_out_dim': [192, 256, 320, None],
+                'depths': [2, 2, 6, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8]
+            },
+            'g_s': {
+                'embed_dim': [320, 256, 192, 128],
+                'embed_out_dim': [256, 192, 128, 3],
+                'depths': [2, 6, 2, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8],
+            },
+            'h_a': {
+                'input_dim': 320,
+                'embed_dim': [192, 192],
+                'embed_out_dim': [192, None],
+                'depths': [5, 1],
+                'head_dim': [32, 32],
+                'window_size': [4, 4]
+            },
+            'h_s': {
+                'embed_dim': [192, 192],
+                'embed_out_dim': [192, int(2 * 320)],
+                'depths': [1, 5],
+                'head_dim': [32, 32],
+                'window_size': [4, 4],
+            }
+        },
+        'L': {
+            'g_a': {
+                'input_dim': 3,
+                'embed_dim': [160, 256, 352, 448],
+                'embed_out_dim': [256, 352, 448, None],
+                'depths': [2, 2, 6, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8]
+            },
+            'g_s': {
+                'embed_dim': [448, 352, 256, 160],
+                'embed_out_dim': [352, 256, 160, 3],
+                'depths': [2, 6, 2, 2],
+                'head_dim': [32, 32, 32, 32],
+                'window_size': [8, 8, 8, 8],
+            },
+            'h_a': {
+                'input_dim': 448,
+                'embed_dim': [192, 256],
+                'embed_out_dim': [256, None],
+                'depths': [5, 1],
+                'head_dim': [32, 32],
+                'window_size': [4, 4]
+            },
+            'h_s': {
+                'embed_dim': [256, 192],
+                'embed_out_dim': [192, int(2 * 448)],
+                'depths': [1, 5],
+                'head_dim': [32, 32],
+                'window_size': [4, 4],
+            }
+        },
+    },
 }
 
 
@@ -447,3 +665,75 @@ def cheng2020_attn(quality, metric="mse", pretrained=False, progress=True, **kwa
     return _load_model(
         "cheng2020-attn", metric, quality, pretrained, progress, **kwargs
     )
+
+
+def zyc2022_conv_hyperprior(quality, metric="mse", pretrained=False, progress=True, **kwargs):
+    """ConvHyperprior
+
+    Args:
+        quality (str): Quality levels (S: 'small', M: 'medium', L: 'large')
+        metric (str): Optimized metric, choose from ('mse', 'ms-ssim')
+        pretrained (bool): If True, returns a pre-trained model
+        progress (bool): If True, displays a progress bar of the download to stderr
+    """
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality not in ['S', 'M', 'L']:
+        raise ValueError(f'Invalid quality "{quality}", should be in ["S", "M", "L"]')
+
+    return _load_model("zyc2022-conv-hyperprior", metric, quality, pretrained, progress, **kwargs)
+
+
+def zyc2022_conv_charm(quality, metric="mse", pretrained=False, progress=True, **kwargs):
+    """ConvChARM
+
+    Args:
+        quality (str): Quality levels ('S': small, 'M': medium, 'L': large)
+        metric (str): Optimized metric, choose from ('mse', 'ms-ssim')
+        pretrained (bool): If True, returns a pre-trained model
+        progress (bool): If True, displays a progress bar of the download to stderr
+    """
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality not in ["S", "M", "L"]:
+        raise ValueError(f'Invalid quality "{quality}", should be in ["S", "M", "L"]')
+
+    return _load_model("zyc2022-conv-charm", metric, quality, pretrained, progress, **kwargs)
+
+
+def zyc2022_swint_hyperprior(quality, metric="mse", pretrained=False, progress=True, **kwargs):
+    """SwinTHyperprior
+
+    Args:
+        quality (str): Quality levels ('S': small, 'M': medium, 'L': large)
+        metric (str): Optimized metric, choose from ('mse', 'ms-ssim')
+        pretrained (bool): If True, returns a pre-trained model
+        progress (bool): If True, displays a progress bar of the download to stderr
+    """
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality not in ["S", "M", "L"]:
+        raise ValueError(f'Invalid quality "{quality}", should be in ["S", "M", "L"]')
+    kwargs.update(cfgs["zyc2022-swint-hyperprior"][quality])
+    return _load_model("zyc2022-swint-hyperprior", metric, quality, pretrained, progress, **kwargs)
+
+
+def zyc2022_swint_charm(quality, metric="mse", pretrained=False, progress=True, **kwargs):
+    """SwinTChARM
+
+    Args:
+        quality (str): Quality levels ('S': small, 'M': medium, 'L': large)
+        metric (str): Optimized metric, choose from ('mse', 'ms-ssim')
+        pretrained (bool): If True, returns a pre-trained model
+        progress (bool): If True, displays a progress bar of the download to stderr
+    """
+    if metric not in ("mse", "ms-ssim"):
+        raise ValueError(f'Invalid metric "{metric}"')
+
+    if quality not in ["S", "M", "L"]:
+        raise ValueError(f'Invalid quality "{quality}", should be in ["S", "M", "L"]')
+    kwargs.update(cfgs["zyc2022-swint-charm"][quality])
+    return _load_model("zyc2022-swint-charm", metric, quality, pretrained, progress, **kwargs)
