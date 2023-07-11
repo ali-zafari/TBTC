@@ -37,7 +37,56 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
 ```
 
 ## Pretrained Models
-Coming soon.
+<table>
+  <thead>
+    <tr style="text-align: left;">
+      <th>Model</th>
+      <th>#Parameters</th>
+      <th>Kodak RD</th>
+      <th>MMACs (512x768)</th>
+      <th>MMACpp</th>
+      <th>checkpoint</th>
+      <th>tensorboard.dev</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="text-align: center;">
+      <th>Conv-Hyperprior</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a href="">model</a></td>
+      <td><a href="">logs</a></td>    </tr>
+    <tr style="text-align: center;">
+      <th>Conv-ChARM</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a href="">model</a></td>
+      <td><a href="">logs</a></td>
+    </tr>
+    <tr style="text-align: center;">
+      <th>SwinT-Hyperprior</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a href="">model</a></td>
+      <td><a href="">logs</a></td> 
+    </tr>
+    <tr style="text-align: center;">
+      <th>SwinT-ChARM</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a href="">model</a></td>
+      <td><a href="">logs</a></td>    
+    </tr>
+  </tbody>
+</table>
 
 ## Code Structure
 The design paradigm of [CompressAI](https://github.com/InterDigitalInc/CompressAI) is closely followed which results to modifications/additions in the following directories. [Lightning](https://github.com/Lightning-AI/lightning)-based python files are also shown below:
