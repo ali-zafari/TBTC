@@ -60,7 +60,8 @@ The design paradigm of [CompressAI](https://github.com/InterDigitalInc/CompressA
 
 ## References/Citations
 #### Repositories
-- [CompressAI](https://github.com/InterDigitalInc/CompressAI): Neural comporession library in Pytorch
+- [CompressAI](https://github.com/InterDigitalInc/CompressAI): Neural comporession library in Pytorch (by InterDigital)
+- [NeuralCompression](https://github.com/facebookresearch/NeuralCompression): Neural comporession library in Pytorch (by Meta)
 - [SwinT-ChARM](https://github.com/Nikolai10/SwinT-ChARM): Unofficial Tensorflow implementation
 - [STF](https://github.com/Googolxx/STF): Window-based attention in neural image compression
 - [Lightning](https://github.com/Lightning-AI/lightning): Pytorch framework for training abstraction
