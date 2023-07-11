@@ -1,19 +1,22 @@
 # Transformer-based Transform Coding (TBTC)
-Pytorch implementation of four neural image compression models discussed in the paper. This unofficial implementation is relied on the [CompressAI](https://github.com/InterDigitalInc/CompressAI) pytorch library and is also wrapped by [Lightning](https://github.com/Lightning-AI/lightning).
+Pytorch implementation of four neural image compression models of [**Transformer-based Transform Coding**](https://openreview.net/forum?id=IDwN6xjHnK8) preseneted at *ICLR 2022*.
+
+This unofficial Pytorch implementation follows the [CompressAI](https://github.com/InterDigitalInc/CompressAI) code structure and then is wrapped by the [Lightning](https://github.com/Lightning-AI/lightning) framework. Tensorflow implementation of [SwinT-ChARM](https://github.com/Nikolai10/SwinT-ChARM) is used as the reference.
+
 
 4 models are implemented in [`compressai/models/qualcomm.py`](compressai/models/qualcomm.py)
 - Conv-Hyperprior
 - Conv-ChARM
 - SwinT-Hyperprior
-- SwintT-ChARM
+- SwinT-ChARM
 
 ## Usage
-A local clone of the CompressAI is provied to make the model integration easier.
+A local clone of the CompressAI is provided to make the model integration easier.
 
 ### Installation
 In a virtual environment follow the steps below (verified on Ubuntu):
 ```bash
-git clone https://github.com/ali-zafari/tbtc TBTC
+git clone https://github.com/ali-zafari/TBTC TBTC
 cd TBTC
 pip install -U pip
 pip install -e .
@@ -33,40 +36,44 @@ To evaluate a saved checkpoint of a model, `compressai.utils.eval` is used. An e
 python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2022-swint-charm --cuda -v -p path/to/a/checkpoint
 ```
 
+## Pretrained Models
+Coming soon.
+
 ## Code Structure
-The design paradigm of [CompressAI](https://github.com/InterDigitalInc/CompressAI) is closely followed which results to modifications/additions in the following directories:
+The design paradigm of [CompressAI](https://github.com/InterDigitalInc/CompressAI) is closely followed which results to modifications/additions in the following directories. [Lightning](https://github.com/Lightning-AI/lightning)-based python files are also shown below:
 ```
-compressai
-    |__losses
-    |   |----rate_distortion.py
-    |
-    |__layers
-    |   |----swin.py
-    |
-    |__models
-    |   |----qualcomm.py
-    |
-    |__zoo
-        |----image.py
+|___compressai
+|    |___losses
+|    |    |---rate_distortion.py       rate-disortion loss
+|    |___layers
+|    |    |---swin.py                  blocks needed by TBTC models
+|    |___models
+|    |    |---qualcomm.py              TBTC models
+|    |___zoo
+|         |---image.p                  model creation based on config
+|
+|---lit_config.py                      configuration file
+|---lit_data.py                        lighting data-module   
+|---lit_model.py                       lightning module
+|---lit_train.py                       main script to start/resume training
 ```
 
-## Citations
+## References/Citations
 #### Repositories
-- [CompressAI](https://github.com/InterDigitalInc/CompressAI): Neural comporession library
+- [CompressAI](https://github.com/InterDigitalInc/CompressAI): Neural comporession library in Pytorch
 - [SwinT-ChARM](https://github.com/Nikolai10/SwinT-ChARM): Unofficial Tensorflow implementation
-- [STF](https://github.com/Googolxx/STF): window-based neural image compression
+- [STF](https://github.com/Googolxx/STF): Window-based attention in neural image compression
 - [Lightning](https://github.com/Lightning-AI/lightning): Pytorch framework for training abstraction
 
 #### Publications
 ```
-@article{begaint2020compressai,
-	title={CompressAI: a PyTorch library and evaluation platform for end-to-end compression research},
-	author={B{\'e}gaint, Jean and Racap{\'e}, Fabien and Feltman, Simon and Pushparaja, Akshay},
-	year={2020},
-	journal={arXiv preprint arXiv:2011.03029},
+@inproceedings{zhu2022tbtc,
+  title={Transformer-based transform coding},
+  author={Zhu, Yinhao and Yang, Yang and Cohen, Taco},
+  booktitle={International Conference on Learning Representations},
+  year={2022}
 }
-```
-```
+
 @article{begaint2020compressai,
 	title={CompressAI: a PyTorch library and evaluation platform for end-to-end compression research},
 	author={B{\'e}gaint, Jean and Racap{\'e}, Fabien and Feltman, Simon and Pushparaja, Akshay},
