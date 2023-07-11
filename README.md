@@ -46,6 +46,7 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
       <th>MMACs (512x768)</th>
       <th>MMACpp</th>
       <th>checkpoint</th>
+      <th>conf</th>
       <th>tensorboard.dev</th>
     </tr>
   </thead>
@@ -57,7 +58,9 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
       <td></td>
       <td></td>
       <td><a href="">model</a></td>
-      <td><a href="">logs</a></td>    </tr>
+      <td><a href="">conf</a></td>
+      <td><a href="">logs</a></td>    
+      </tr>
     <tr style="text-align: center;">
       <th>Conv-ChARM</th>
       <td></td>
@@ -65,6 +68,7 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
       <td></td>
       <td></td>
       <td><a href="">model</a></td>
+      <td><a href="">conf</a></td>
       <td><a href="">logs</a></td>
     </tr>
     <tr style="text-align: center;">
@@ -74,6 +78,7 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
       <td></td>
       <td></td>
       <td><a href="">model</a></td>
+      <td><a href="">conf</a></td>
       <td><a href="">logs</a></td> 
     </tr>
     <tr style="text-align: center;">
@@ -83,6 +88,7 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
       <td></td>
       <td></td>
       <td><a href="">model</a></td>
+      <td><a href="">conf</a></td>
       <td><a href="">logs</a></td>    
     </tr>
   </tbody>
