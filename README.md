@@ -50,7 +50,7 @@ The design paradigm of [CompressAI](https://github.com/InterDigitalInc/CompressA
 |    |___models
 |    |    |---qualcomm.py              TBTC models
 |    |___zoo
-|         |---image.p                  model creation based on config
+|         |---image.py                 model creation based on config
 |
 |---lit_config.py                      configuration file
 |---lit_data.py                        lighting data-module   
