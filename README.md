@@ -23,6 +23,19 @@ pip install -e .
 pip install lightning==2.0.2
 pip install tensorboard
 ```
+### Datasets
+`CLIC-2020` is used for training, described below.
+- Training
+  - `1631` images with resolution of at least 256x256 pixels chosen from union of `Mobile/train` and `Professional/train`
+- Validation
+  - `32` images with resolution of at least 1200x1200 pixels chosen from `Professional/valid`
+
+`Kodak` test set is used to evaluate the final trained model.
+- Test
+  - `24` RGB images of size 512x768 pixels
+
+All three data subsets described above can be downloaded from this [link](https://drive.google.com/file/d/1g-qWy_i6kTVGDBYh1ol0corugyT-xVJG/view?usp=sharing) (6.1GB).
+
 ### Training
 All the configurations regarding dataloader, training strategy, and etc should be set in the `lit_config.py` followed by the command:
 ```bash
