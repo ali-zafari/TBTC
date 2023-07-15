@@ -41,58 +41,59 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
   <thead>
     <tr style="text-align: left;">
       <th>Model</th>
+      <th>Size</th>
       <th>#Parameters</th>
       <th>Kodak RD</th>
-      <th>MMACs (512x768)</th>
-      <th>MMACpp</th>
+      <th>GMACs* (ENC/DEC)</th>
       <th>checkpoint</th>
-      <th>conf</th>
-      <th>tensorboard.dev</th>
+      <th>#train-steps</th>
+      <th>logs</th>
     </tr>
   </thead>
   <tbody>
     <tr style="text-align: center;">
       <th>Conv-Hyperprior</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><a href="">model</a></td>
-      <td><a href="">conf</a></td>
-      <td><a href="">logs</a></td>    
+      <td>Medium</td>
+      <td>21.39M</td>
+      <td>32.93dB / 0.433bpp</td>
+      <td>99 / 350</td>
+      <td><a href="https://drive.google.com/file/d/1whqdbRN7uVpacGrzO5SLv8F9rTurReQ2/view?usp=drive_link">download</a></td>
+      <td>1M</td>
+      <td><a href="https://tensorboard.dev/experiment/ecKVRhlRTg6hDAGRbeiZTw/#scalars">tensorboard.dev</a></td>    
       </tr>
     <tr style="text-align: center;">
       <th>Conv-ChARM</th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><a href="">model</a></td>
-      <td><a href="">conf</a></td>
-      <td><a href="">logs</a></td>
+      <td>Medium</td>
+      <td>29.08M</td>
+      <td>33.10dB / 0.420bpp</td>
+      <td>111 / 361</td>
+      <td><a href="https://drive.google.com/file/d/1OJ5nJFSdZNtAiqnBCK272DI8YHmOPwGa/view?usp=drive_link">download</a></td>
+      <td>1M</td>
+      <td><a href="https://tensorboard.dev/experiment/dvb7lh6rT7me1UMJOw8kaw/#scalars">tensorboard.dev</a></td>
     </tr>
     <tr style="text-align: center;">
       <th>SwinT-Hyperprior</th>
+      <td>Medium</td>
+      <td>24.65M</td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><a href="">model</a></td>
-      <td><a href="">conf</a></td>
-      <td><a href="">logs</a></td> 
+      <td>99 / 99</td>
+      <td>link</td>
+      <td>-M</td>
+      <td>tensorboard.dev</td> 
     </tr>
     <tr style="text-align: center;">
       <th>SwinT-ChARM</th>
+      <td>Medium</td>
+      <td>32.35M</td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><a href="">model</a></td>
-      <td><a href="">conf</a></td>
-      <td><a href="">logs</a></td>    
+      <td>110 / 110</td>
+      <td>link</td>
+      <td>-M</td>
+      <td>tensorboard.dev</td>    
     </tr>
   </tbody>
 </table>
+* for image size of 768x512
 
 ## Code Structure
 The design paradigm of [CompressAI](https://github.com/InterDigitalInc/CompressAI) is closely followed which results to modifications/additions in the following directories. [Lightning](https://github.com/Lightning-AI/lightning)-based python files are also shown below:
