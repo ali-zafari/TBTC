@@ -50,6 +50,7 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
 ```
 
 ## Pretrained Models
+<font size="1">
 <table>
   <thead>
     <tr style="text-align: left;">
@@ -106,6 +107,7 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
     </tr>
   </tbody>
 </table>
+</font>
 * for image size of 768x512
 
 ## Code Structure
