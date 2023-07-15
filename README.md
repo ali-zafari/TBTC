@@ -5,10 +5,12 @@ This unofficial Pytorch implementation follows the [CompressAI](https://github.c
 
 
 4 models are implemented in [`compressai/models/qualcomm.py`](compressai/models/qualcomm.py)
-- Conv-Hyperprior
-- Conv-ChARM
-- SwinT-Hyperprior
-- SwinT-ChARM
+- **Conv-Hyperprior**
+- **Conv-ChARM**
+- **SwinT-Hyperprior**
+- **SwinT-ChARM**
+
+Models' configurations are defined in a python dictionay object named [`cfgs`](compressai/zoo/image.py#L271) in [compressai/zoo/image.py](compressai/zoo/image.py).
 
 ## Usage
 A local clone of the CompressAI is provided to make the model integration easier.
@@ -24,13 +26,13 @@ pip install lightning==2.0.2
 pip install tensorboard
 ```
 ### Datasets
-`CLIC-2020` is used for training, described below.
+[CLIC-2020](https://www.tensorflow.org/datasets/catalog/clic) is used for training, described below.
 - Training
   - `1631` images with resolution of at least 256x256 pixels chosen from union of `Mobile/train` and `Professional/train`
 - Validation
   - `32` images with resolution of at least 1200x1200 pixels chosen from `Professional/valid`
 
-`Kodak` test set is used to evaluate the final trained model.
+[Kodak](https://r0k.us/graphics/kodak/) test set is used to evaluate the final trained model.
 - Test
   - `24` RGB images of size 512x768 pixels
 
@@ -50,9 +52,9 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
 ```
 
 ## Pretrained Models
-
+Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
 | Model | Size | #Params | $\lambda$ | Kodak <br> bitrate | Kodak <br> distortion| GMACs [^1] <br> (ENC/DEC) | model | #steps | logs |
-| :--- | :---: | :---: | :---: | --- | :--- | :--- | :---: | :---: | :---: |
+| :--- | :---: | :---: | :---: | :--- | :--- | :---: | :---: | :---: | :---: |
 | Conv-Hyperprior	 | "M" | 21.4M |0.01| 0.433 bpp | 32.93 dB | 99 / 350 | [link](https://drive.google.com/file/d/1whqdbRN7uVpacGrzO5SLv8F9rTurReQ2/view?usp=drive) | 1M | [link](https://tensorboard.dev/experiment/ecKVRhlRTg6hDAGRbeiZTw/#scalars) |
 | Conv-ChARM	 | "M" | 29.1M | 0.01 | 0.420 bpp | 33.10 dB | 111 / 361 | [link](https://drive.google.com/file/d/1OJ5nJFSdZNtAiqnBCK272DI8YHmOPwGa/view?usp=drive_link) | 1M | [link](https://tensorboard.dev/experiment/dvb7lh6rT7me1UMJOw8kaw/#scalars) |
 | SwinT-Hyperprior	 | "M" | 24.7M | 0.01 | --- | --- |  99 / 99 | --- | --- | --- |
