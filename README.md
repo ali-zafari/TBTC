@@ -36,7 +36,7 @@ pip install tensorboard
 - Test
   - `24` RGB images of size 512x768 pixels
 
-All three data subsets described above can be downloaded from this [link](https://drive.google.com/file/d/1g-qWy_i6kTVGDBYh1ol0corugyT-xVJG/view?usp=sharing) (6.1GB).
+All three data subsets described above can be downloaded from this [link](https://drive.google.com/file/d/1g-qWy_i6kTVGDBYh1ol0corugyT-xVJG/view?usp=sharing) (5.8GB).
 
 ### Training
 All the configurations regarding dataloader, training strategy, and etc should be set in the `lit_config.py` followed by the command:
@@ -55,9 +55,9 @@ python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2
 Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
 | Model | Size | #Params | $\lambda$ | Kodak <br> bitrate | Kodak <br> distortion| GMACs [^1] <br> (ENC/DEC) | model | #steps | logs |
 | :--- | :---: | :---: | :---: | :--- | :--- | :---: | :---: | :---: | :---: |
-| Conv-Hyperprior	 | "M" | 21.4M |0.01| 0.433 bpp | 32.93 dB | 99 / 350 | [link](https://drive.google.com/file/d/1whqdbRN7uVpacGrzO5SLv8F9rTurReQ2/view?usp=drive) | 1M | [link](https://tensorboard.dev/experiment/ecKVRhlRTg6hDAGRbeiZTw/#scalars) |
-| Conv-ChARM	 | "M" | 29.1M | 0.01 | 0.420 bpp | 33.10 dB | 111 / 361 | [link](https://drive.google.com/file/d/1OJ5nJFSdZNtAiqnBCK272DI8YHmOPwGa/view?usp=drive_link) | 1M | [link](https://tensorboard.dev/experiment/dvb7lh6rT7me1UMJOw8kaw/#scalars) |
-| SwinT-Hyperprior	 | "M" | 24.7M | 0.01 | --- | --- |  99 / 99 | --- | --- | --- |
+| Conv-Hyperprior	 | "M" | 21.4M |0.01| 0.43 bpp | 32.93 dB | 99 / 350 | [link](https://drive.google.com/file/d/1whqdbRN7uVpacGrzO5SLv8F9rTurReQ2/view?usp=drive) | 1M | [link](https://tensorboard.dev/experiment/ecKVRhlRTg6hDAGRbeiZTw/#scalars) |
+| Conv-ChARM	 | "M" | 29.1M | 0.01 | 0.42 bpp | 33.10 dB | 111 / 361 | [link](https://drive.google.com/file/d/1OJ5nJFSdZNtAiqnBCK272DI8YHmOPwGa/view?usp=drive_link) | 1M | [link](https://tensorboard.dev/experiment/dvb7lh6rT7me1UMJOw8kaw/#scalars) |
+| SwinT-Hyperprior	 | "M" | 24.7M | 0.01 | 0.37 bpp | 14.56 dB |  99 / 99 | [link](https://drive.google.com/file/d/16zJX3zj-742UPI4zWwvaTgSibuHWuDj2/view?usp=sharing) | 1M | [link](https://tensorboard.dev/experiment/wk66DS80QJKZlSQvTMEPNg/#scalars) |
 | SwinT-ChARM	 | "M" | 32.4M | 0.01 | --- | --- | 110 / 110 | --- | --- | --- |
 
 [^1]: per input image size of 768x512
