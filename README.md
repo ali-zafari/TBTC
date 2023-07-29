@@ -1,16 +1,27 @@
 # Transformer-based Transform Coding (TBTC)
-Pytorch implementation of four neural image compression models of [**Transformer-based Transform Coding**](https://openreview.net/forum?id=IDwN6xjHnK8) preseneted at *ICLR 2022*.
+PyTorch implementation of four neural image compression models of [**Transformer-based Transform Coding**](https://openreview.net/forum?id=IDwN6xjHnK8) preseneted at *ICLR 2022*.
 
-This unofficial Pytorch implementation follows the [CompressAI](https://github.com/InterDigitalInc/CompressAI) code structure and then is wrapped by the [Lightning](https://github.com/Lightning-AI/lightning) framework. Tensorflow implementation of [SwinT-ChARM](https://github.com/Nikolai10/SwinT-ChARM) is used as the reference.
+4 models are implemented in [`compressai/models/qualcomm.py`](compressai/models/qualcomm.py): *Conv-Hyperprior*, *Conv-ChARM*, *SwinT-Hyperprior*, *SwinT-ChARM*, as shown below.
+
+|**Conv-Hyperprior**|**Conv-ChARM**|
+|:---:|:---:|
+|<img src="assets/convhyperprior.png" width="95%" alt="conv-hyperprior">|<img src="assets/convcharm.png" width="95%" alt="conv-charm">|
+|**SwinT-Hyperprior**|**SwinT-ChARM**|
+|<img src="assets/swinthyperprior.png" width="95%" alt="swint-hyperprior">|<img src="assets/swintcharm.png" width="95%" alt="swint-charm">|
 
 
-4 models are implemented in [`compressai/models/qualcomm.py`](compressai/models/qualcomm.py)
-- **Conv-Hyperprior**
-- **Conv-ChARM**
-- **SwinT-Hyperprior**
-- **SwinT-ChARM**
+Models' configurations are defined in a python dictionay object named [`cfgs`](compressai/zoo/image.py#L271) in [compressai/zoo/image.py](compressai/zoo/image.py) as described in [Section A.3 of Transformer-based Transform Coding](https://openreview.net/pdf?id=IDwN6xjHnK8).
 
-Models' configurations are defined in a python dictionay object named [`cfgs`](compressai/zoo/image.py#L271) in [compressai/zoo/image.py](compressai/zoo/image.py).
+## Pretrained Models
+Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
+| Model | Size | #Param | $\lambda$ | Kodak <br> [bpp]/[dB]| GMACs [^1] <br> (ENC/DEC) | model | #steps | logs |
+| :--- | :---: | :---: | :---: | :--- | :---: | :---: | :---: | :---: |
+| Conv-Hyperprior	 | "M" | 21.4M |0.01| 0.43 / 32.93| 99 / 350 | [link](https://drive.google.com/file/d/1whqdbRN7uVpacGrzO5SLv8F9rTurReQ2/view?usp=drive) | 1M | [link](https://tensorboard.dev/experiment/ecKVRhlRTg6hDAGRbeiZTw/#scalars) |
+| Conv-ChARM	 | "M" | 29.1M | 0.01 | 0.42 / 33.10| 111 / 361 | [link](https://drive.google.com/file/d/1OJ5nJFSdZNtAiqnBCK272DI8YHmOPwGa/view?usp=drive_link) | 1M | [link](https://tensorboard.dev/experiment/dvb7lh6rT7me1UMJOw8kaw/#scalars) |
+| SwinT-Hyperprior	 | "M" | 24.7M | 0.01 | 0.37 / 14.56 |  99 / 99 | [link](https://drive.google.com/file/d/16zJX3zj-742UPI4zWwvaTgSibuHWuDj2/view?usp=sharing) | 1M | [link](https://tensorboard.dev/experiment/wk66DS80QJKZlSQvTMEPNg/#scalars) |
+| SwinT-ChARM	 | "M" | 32.4M | 0.01 | --- | 110 / 110 | --- | --- | --- |
+
+[^1]: per input image size of 768x512
 
 ## Usage
 A local clone of the CompressAI is provided to make the model integration easier.
@@ -51,43 +62,36 @@ To evaluate a saved checkpoint of a model, `compressai.utils.eval` is used. An e
 python -m compressai.utils.eval_model checkpoint path/to/data/directory  -a zyc2022-swint-charm --cuda -v -p path/to/a/checkpoint
 ```
 
-## Pretrained Models
-Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
-| Model | Size | #Params | $\lambda$ | Kodak <br> bitrate | Kodak <br> distortion| GMACs [^1] <br> (ENC/DEC) | model | #steps | logs |
-| :--- | :---: | :---: | :---: | :--- | :--- | :---: | :---: | :---: | :---: |
-| Conv-Hyperprior	 | "M" | 21.4M |0.01| 0.43 bpp | 32.93 dB | 99 / 350 | [link](https://drive.google.com/file/d/1whqdbRN7uVpacGrzO5SLv8F9rTurReQ2/view?usp=drive) | 1M | [link](https://tensorboard.dev/experiment/ecKVRhlRTg6hDAGRbeiZTw/#scalars) |
-| Conv-ChARM	 | "M" | 29.1M | 0.01 | 0.42 bpp | 33.10 dB | 111 / 361 | [link](https://drive.google.com/file/d/1OJ5nJFSdZNtAiqnBCK272DI8YHmOPwGa/view?usp=drive_link) | 1M | [link](https://tensorboard.dev/experiment/dvb7lh6rT7me1UMJOw8kaw/#scalars) |
-| SwinT-Hyperprior	 | "M" | 24.7M | 0.01 | 0.37 bpp | 14.56 dB |  99 / 99 | [link](https://drive.google.com/file/d/16zJX3zj-742UPI4zWwvaTgSibuHWuDj2/view?usp=sharing) | 1M | [link](https://tensorboard.dev/experiment/wk66DS80QJKZlSQvTMEPNg/#scalars) |
-| SwinT-ChARM	 | "M" | 32.4M | 0.01 | --- | --- | 110 / 110 | --- | --- | --- |
 
-[^1]: per input image size of 768x512
 
 ## Code Structure
+This unofficial PyTorch implementation follows the [CompressAI](https://github.com/InterDigitalInc/CompressAI) code structure and then is wrapped by the [Lightning](https://github.com/Lightning-AI/lightning) framework. Tensorflow implementation of [SwinT-ChARM](https://github.com/Nikolai10/SwinT-ChARM) is used as the reference.
+
 The design paradigm of [CompressAI](https://github.com/InterDigitalInc/CompressAI) is closely followed which results to modifications/additions in the following directories. [Lightning](https://github.com/Lightning-AI/lightning)-based python files are also shown below:
 ```
-|___compressai
-|    |___losses
-|    |    |---rate_distortion.py       rate-disortion loss
-|    |___layers
-|    |    |---swin.py                  blocks needed by TBTC models
-|    |___models
-|    |    |---qualcomm.py              TBTC models
-|    |___zoo
-|         |---image.py                 model creation based on config
+|---compressai
+|    |---losses
+|    |    ├───rate_distortion.py       rate-disortion loss
+|    |---layers
+|    |    ├───swin.py                  blocks needed by TBTC models
+|    |---models
+|    |    ├───qualcomm.py              TBTC models
+|    |---zoo
+|         ├───image.py                 model creation based on config
 |
-|---lit_config.py                      configuration file
-|---lit_data.py                        lighting data-module   
-|---lit_model.py                       lightning module
-|---lit_train.py                       main script to start/resume training
+├───lit_config.py                      configuration file
+├───lit_data.py                        lighting data-module   
+├───lit_model.py                       lightning module
+├───lit_train.py                       main script to start/resume training
 ```
 
 ## References/Citations
 #### Repositories
-- [CompressAI](https://github.com/InterDigitalInc/CompressAI): Neural comporession library in Pytorch (by InterDigital)
-- [NeuralCompression](https://github.com/facebookresearch/NeuralCompression): Neural comporession library in Pytorch (by Meta)
+- [CompressAI](https://github.com/InterDigitalInc/CompressAI): Neural comporession library in PyTorch (by [InterDigital](https://www.interdigital.com/))
+- [NeuralCompression](https://github.com/facebookresearch/NeuralCompression): Neural comporession library in PyTorch (by [Meta](https://opensource.fb.com/))
 - [SwinT-ChARM](https://github.com/Nikolai10/SwinT-ChARM): Unofficial Tensorflow implementation
 - [STF](https://github.com/Googolxx/STF): Window-based attention in neural image compression
-- [Lightning](https://github.com/Lightning-AI/lightning): Pytorch framework for training abstraction
+- [Lightning](https://github.com/Lightning-AI/lightning): PyTorch framework for training abstraction
 
 #### Publications
 ```
