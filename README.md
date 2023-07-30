@@ -13,12 +13,14 @@ PyTorch implementation of four neural image compression models of [**Transformer
 Models' configurations are defined in a python dictionay object named [`cfgs`](compressai/zoo/image.py#L271) in [compressai/zoo/image.py](compressai/zoo/image.py) as described in [Section A.3 of Transformer-based Transform Coding](https://openreview.net/pdf?id=IDwN6xjHnK8).
 
 ## Pretrained Models
+> SwinT-based models are to be released soon.
+
 Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
-| Model | Size | #Param | $\lambda$ | Kodak <br> [bpp]/[dB]| GMACs [^1] <br> (ENC/DEC) | model | #steps | logs |
-| :--- | :---: | :---: | :---: | :--- | :---: | :---: | :---: | :---: |
+| Model | Size | #Param | $\lambda$ | Kodak <br> [bpp] / [dB]| GMACs [^1] <br> (ENC/DEC) | model | #steps | logs |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | Conv-Hyperprior	 | "M" | 21.4M |0.01| 0.43 / 32.93| 99 / 350 | [link](https://drive.google.com/file/d/1whqdbRN7uVpacGrzO5SLv8F9rTurReQ2/view?usp=drive) | 1M | [link](https://tensorboard.dev/experiment/ecKVRhlRTg6hDAGRbeiZTw/#scalars) |
 | Conv-ChARM	 | "M" | 29.1M | 0.01 | 0.42 / 33.10| 111 / 361 | [link](https://drive.google.com/file/d/1OJ5nJFSdZNtAiqnBCK272DI8YHmOPwGa/view?usp=drive_link) | 1M | [link](https://tensorboard.dev/experiment/dvb7lh6rT7me1UMJOw8kaw/#scalars) |
-| SwinT-Hyperprior	 | "M" | 24.7M | 0.01 | 0.37 / 14.56 |  99 / 99 | [link](https://drive.google.com/file/d/16zJX3zj-742UPI4zWwvaTgSibuHWuDj2/view?usp=sharing) | 1M | [link](https://tensorboard.dev/experiment/wk66DS80QJKZlSQvTMEPNg/#scalars) |
+| SwinT-Hyperprior	 | "M" | 24.7M | 0.01 | --- |  99 / 99 | --- |--- | --- |
 | SwinT-ChARM	 | "M" | 32.4M | 0.01 | --- | 110 / 110 | --- | --- | --- |
 
 [^1]: per input image size of 768x512
