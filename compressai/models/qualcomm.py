@@ -280,8 +280,8 @@ class SwinTAnalysisTransform(nn.Module):
 
     def __init__(self, embed_dim, embed_out_dim, depths, head_dim, window_size, input_dim):
         super().__init__()
-        # self.patch_embed = PatchEmbed(dim=3, out_dim=embed_dim[0])
-        self.patch_embed = nn.Conv2d(input_dim, embed_dim[0], 2, 2)
+        self.patch_embed = PatchEmbed(dim=input_dim, out_dim=embed_dim[0])
+        # self.patch_embed = nn.Conv2d(input_dim, embed_dim[0], 2, 2)
         num_layers = len(depths)
         self.layers = nn.ModuleList(
             [BasicLayer(dim=embed_dim[i],
@@ -294,7 +294,7 @@ class SwinTAnalysisTransform(nn.Module):
         )
 
     def forward(self, x):
-        x = self.patch_embed(x).permute(0, 2, 3, 1)
+        x = self.patch_embed(x)
         for layer in self.layers:
             x = layer(x)
         return x.permute(0, 3, 1, 2)
@@ -326,8 +326,8 @@ class SwinTHyperAnalysisTransform(nn.Module):
 
     def __init__(self, embed_dim, embed_out_dim, depths, head_dim, window_size, input_dim):
         super().__init__()
-        # self.patch_merger = PatchMerging(dim=embed_dim[-1], out_dim=embed_out_dim[0])
-        self.patch_merger = nn.Conv2d(input_dim, embed_dim[0], 2, 2)
+        self.patch_merger = PatchEmbed(dim=input_dim, out_dim=embed_out_dim[0])
+        # self.patch_merger = nn.Conv2d(input_dim, embed_dim[0], 2, 2)
         num_layers = len(depths)
         self.layers = nn.ModuleList(
             [BasicLayer(dim=embed_dim[i],
@@ -340,7 +340,7 @@ class SwinTHyperAnalysisTransform(nn.Module):
         )
 
     def forward(self, x):
-        x = self.patch_merger(x).permute(0, 2, 3, 1)
+        x = self.patch_merger(x)
         for layer in self.layers:
             x = layer(x)
         return x.permute(0, 3, 1, 2)

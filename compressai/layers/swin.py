@@ -37,7 +37,7 @@ class PatchSplitting(nn.Module):
         super().__init__()
         self.dim = dim
         self.out_dim = out_dim or dim
-        self.norm = norm_layer(4 * out_dim)
+        self.norm = norm_layer(dim)
         self.reduction = nn.Linear(dim, 4 * out_dim, bias=False)
 
     def forward(self, x):
@@ -45,12 +45,12 @@ class PatchSplitting(nn.Module):
         assert self.dim == C, f"input dimension is {C} while expecting {self.dim}"
         x = x.view(-1, H * W, C)
 
-        x = self.reduction(x)
         x = self.norm(x)
+        x = self.reduction(x)
 
-        x = x.view(-1, H,  W, 4 * self.out_dim)
+        x = x.view(-1, H,  W, 4 * self.out_dim).permute(0, 3, 1, 2)
         x = F.pixel_shuffle(x, upscale_factor=2)
-        x = x.view(-1, 2 * H, 2 * W, self.out_dim)
+        x = x.permute(0, 2, 3 , 1)
 
         return x
 
@@ -217,9 +217,9 @@ class SwinTransformerBlock(nn.Module):
 
         self.attn_mask = None
 
-    def get_img_mask(self):
+    def get_img_mask(self, device):
         H, W = self.input_resolution
-        img_mask = torch.zeros((1, H, W, 1))  # 1 H W 1
+        img_mask = torch.zeros((1, H, W, 1), device=device)  # 1 H W 1
         h_slices = (slice(0, -self.window_size),
                     slice(-self.window_size, -self.shift_size),
                     slice(-self.shift_size, None))
@@ -245,9 +245,9 @@ class SwinTransformerBlock(nn.Module):
 
         if self.shift_size > 0:
             with torch.no_grad():
-                self.img_mask = self.get_img_mask()
+                self.img_mask = self.get_img_mask(device=x.device)
             self.attn_mask = self.get_attn_mask()
-            self.attn_mask = self.attn_mask.to(x.device)
+            # self.attn_mask = self.attn_mask.to(x.device)
 
         x = x.view(-1, H * W, C)
 
@@ -364,7 +364,6 @@ class PatchEmbed(nn.Module):
             self.norm = None
 
     def forward(self, x):
-        # _, C, H, W = x.shape
         x = self.proj(x).permute(0, 2, 3, 1)  # [B] x [Ph] x [Pw] x [C]
         if self.norm is not None:
             x = self.norm(x)
