@@ -76,7 +76,7 @@ class RateDistortionLoss(nn.Module):
         if self.lmbda is not None:
             out["loss"] = self.lmbda * distortion + out["bpp_loss"]
         else:
-            out["loss"] = distortion + self.beta * out["bpp_loss"]
+            out["loss"] = distortion + self.beta * out["bpp_loss"] * H * W
 
         if self.return_type == "all":
             return out
