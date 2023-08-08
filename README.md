@@ -13,15 +13,13 @@ PyTorch implementation of four neural image compression models of [**Transformer
 Models' configurations are defined in a python dictionay object named [`cfgs`](compressai/zoo/image.py#L271) in [compressai/zoo/image.py](compressai/zoo/image.py) as described in [Section A.3 of Transformer-based Transform Coding](https://openreview.net/pdf?id=IDwN6xjHnK8).
 
 ## Pretrained Models
-> SwinT-based models are to be released soon.
-
 Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
-| Model | Size | #Param | $\lambda$ | Kodak <br> [bpp] / [dB]| GMACs [^1] <br> (ENC/DEC) | model | #steps | logs |
+| Model | Size | #Param | $\lambda$ | checkpoint | TensorBoard.dev<br>logs | Kodak <br> [bpp] / [dB]| GMACs [^1] <br> (ENC/DEC) | #steps |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Conv-Hyperprior	 | "M" | 21.4M |0.01| 0.43 / 32.93| 99 / 350 | [link](https://drive.google.com/file/d/1whqdbRN7uVpacGrzO5SLv8F9rTurReQ2/view?usp=drive) | 1M | [link](https://tensorboard.dev/experiment/ecKVRhlRTg6hDAGRbeiZTw/#scalars) |
-| Conv-ChARM	 | "M" | 29.1M | 0.01 | 0.42 / 33.10| 111 / 361 | [link](https://drive.google.com/file/d/1OJ5nJFSdZNtAiqnBCK272DI8YHmOPwGa/view?usp=drive_link) | 1M | [link](https://tensorboard.dev/experiment/dvb7lh6rT7me1UMJOw8kaw/#scalars) |
-| SwinT-Hyperprior	 | "M" | 24.7M | 0.01 | --- |  99 / 99 | --- |--- | --- |
-| SwinT-ChARM	 | "M" | 32.4M | 0.01 | --- | 110 / 110 | --- | --- | --- |
+| Conv-Hyperprior	 | "M" | 21.4M |0.01| [link](https://drive.google.com/file/d/1RyDmDDqrIwkVvVvH3HlPfwAoK4jmWY97/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjp0cnVlLCJzd2ludC1jaGFybSI6ZmFsc2UsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.43 / 33.03| 99 / 350 | 2M |
+| Conv-ChARM	 | "M" | 29.1M | 0.01 | [link](https://drive.google.com/file/d/1_UwLe_hwxKDnT-Nd4jrBTZdqFNygK0j2/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjp0cnVlLCJjb252LWh5cGVycHJpb3IiOmZhbHNlLCJzd2ludC1jaGFybSI6ZmFsc2UsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.41 / 33.17| 111 / 361 | 2M |
+| SwinT-Hyperprior	 | "M" | 24.7M  | 0.01| [link](https://drive.google.com/file/d/1FS5t5kOZloUwdJr-DEOP-XSFYUdNj5gq/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjpmYWxzZSwic3dpbnQtY2hhcm0iOmZhbHNlLCJzd2ludC1oeXBlcnByaW9yIjp0cnVlfQ%3D%3D&tagFilter=valid) | 0.38 / 32.67 |  99 / 99 |2M |
+| SwinT-ChARM	 | "M" | 32.4M | 0.01 | [link](https://drive.google.com/file/d/1i7Q1S74b2f2kar76dVSPRH2C-Nu0p6ou/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjpmYWxzZSwic3dpbnQtY2hhcm0iOnRydWUsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.37 / 33.07 | 110 / 110 | 2M |
 
 [^1]: per input image size of 768x512
 
