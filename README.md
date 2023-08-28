@@ -1,8 +1,29 @@
 # Transformer-based Transform Coding (TBTC)
 PyTorch implementation of four neural image compression models of [**Transformer-based Transform Coding**](https://openreview.net/forum?id=IDwN6xjHnK8) preseneted at *ICLR 2022*.
 
-4 models are implemented in [`compressai/models/qualcomm.py`](compressai/models/qualcomm.py): *Conv-Hyperprior*, *Conv-ChARM*, *SwinT-Hyperprior*, *SwinT-ChARM*, as shown below.
+4 models are implemented in [`compressai/models/qualcomm.py`](compressai/models/qualcomm.py): ***SwinT-ChARM***, ***SwinT-Hyperprior***, ***Conv-ChARM***, ***Conv-Hyperprior***.
 
+<!-- ![Kodak-rate-distortion](assets/Kodak/rd_curve.png "Kodak Rate-Distortion Performance")
+<img src="assets/Kodak/rd_curve.png" width="50%" alt="Kodak-rate-distortion"> -->
+|**Kodak Rate-Distortion Performance**[^1]|
+|:---:|
+|![Kodak-rate-distortion](assets/Kodak/rd_curve.png "Kodak RD")|
+
+[^1]: Models in this RD curve are trained for 1M steps (only half of the total steps mentioned in the original paper).
+
+## Pretrained Models
+Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
+| Model | Size | #Param | $\lambda$ | checkpoint | TensorBoard.dev<br>logs | Kodak <br> [bpp] / [dB]| GMACs [^2] <br> (ENC/DEC) | #steps |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Conv-Hyperprior	 | "M" | 21.4M |0.01| [link](https://drive.google.com/file/d/1RyDmDDqrIwkVvVvH3HlPfwAoK4jmWY97/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjp0cnVlLCJzd2ludC1jaGFybSI6ZmFsc2UsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.43 / 33.03| 99 / 350 | 2M |
+| Conv-ChARM	 | "M" | 29.1M | 0.01 | [link](https://drive.google.com/file/d/1_UwLe_hwxKDnT-Nd4jrBTZdqFNygK0j2/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjp0cnVlLCJjb252LWh5cGVycHJpb3IiOmZhbHNlLCJzd2ludC1jaGFybSI6ZmFsc2UsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.41 / 33.17| 111 / 361 | 2M |
+| SwinT-Hyperprior	 | "M" | 24.7M  | 0.01| [link](https://drive.google.com/file/d/1FS5t5kOZloUwdJr-DEOP-XSFYUdNj5gq/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjpmYWxzZSwic3dpbnQtY2hhcm0iOmZhbHNlLCJzd2ludC1oeXBlcnByaW9yIjp0cnVlfQ%3D%3D&tagFilter=valid) | 0.38 / 32.67 |  99 / 99 |2M |
+| SwinT-ChARM	 | "M" | 32.4M | 0.01 | [link](https://drive.google.com/file/d/1i7Q1S74b2f2kar76dVSPRH2C-Nu0p6ou/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjpmYWxzZSwic3dpbnQtY2hhcm0iOnRydWUsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.37 / 33.07 | 110 / 110 | 2M |
+
+[^2]: per input image size of 768x512
+
+## Model Architectures
+Models' configurations are defined in a python dictionay object named [`cfgs`](compressai/zoo/image.py#L271) in [compressai/zoo/image.py](compressai/zoo/image.py) as described in [Section A.3 of Transformer-based Transform Coding](https://openreview.net/pdf?id=IDwN6xjHnK8).
 |**Conv-Hyperprior**|**Conv-ChARM**|
 |:---:|:---:|
 |<img src="assets/convhyperprior.png" width="95%" alt="conv-hyperprior">|<img src="assets/convcharm.png" width="95%" alt="conv-charm">|
@@ -10,18 +31,6 @@ PyTorch implementation of four neural image compression models of [**Transformer
 |<img src="assets/swinthyperprior.png" width="95%" alt="swint-hyperprior">|<img src="assets/swintcharm.png" width="95%" alt="swint-charm">|
 
 
-Models' configurations are defined in a python dictionay object named [`cfgs`](compressai/zoo/image.py#L271) in [compressai/zoo/image.py](compressai/zoo/image.py) as described in [Section A.3 of Transformer-based Transform Coding](https://openreview.net/pdf?id=IDwN6xjHnK8).
-
-## Pretrained Models
-Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
-| Model | Size | #Param | $\lambda$ | checkpoint | TensorBoard.dev<br>logs | Kodak <br> [bpp] / [dB]| GMACs [^1] <br> (ENC/DEC) | #steps |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Conv-Hyperprior	 | "M" | 21.4M |0.01| [link](https://drive.google.com/file/d/1RyDmDDqrIwkVvVvH3HlPfwAoK4jmWY97/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjp0cnVlLCJzd2ludC1jaGFybSI6ZmFsc2UsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.43 / 33.03| 99 / 350 | 2M |
-| Conv-ChARM	 | "M" | 29.1M | 0.01 | [link](https://drive.google.com/file/d/1_UwLe_hwxKDnT-Nd4jrBTZdqFNygK0j2/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjp0cnVlLCJjb252LWh5cGVycHJpb3IiOmZhbHNlLCJzd2ludC1jaGFybSI6ZmFsc2UsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.41 / 33.17| 111 / 361 | 2M |
-| SwinT-Hyperprior	 | "M" | 24.7M  | 0.01| [link](https://drive.google.com/file/d/1FS5t5kOZloUwdJr-DEOP-XSFYUdNj5gq/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjpmYWxzZSwic3dpbnQtY2hhcm0iOmZhbHNlLCJzd2ludC1oeXBlcnByaW9yIjp0cnVlfQ%3D%3D&tagFilter=valid) | 0.38 / 32.67 |  99 / 99 |2M |
-| SwinT-ChARM	 | "M" | 32.4M | 0.01 | [link](https://drive.google.com/file/d/1i7Q1S74b2f2kar76dVSPRH2C-Nu0p6ou/view?usp=sharing) | [link](https://tensorboard.dev/experiment/gUG6uE0QQdqc05EG8zCXNA/#scalars&runSelectionState=eyJjb252LWNoYXJtIjpmYWxzZSwiY29udi1oeXBlcnByaW9yIjpmYWxzZSwic3dpbnQtY2hhcm0iOnRydWUsInN3aW50LWh5cGVycHJpb3IiOmZhbHNlfQ%3D%3D&tagFilter=valid) | 0.37 / 33.07 | 110 / 110 | 2M |
-
-[^1]: per input image size of 768x512
 
 ## Usage
 A local clone of the CompressAI is provided to make the model integration easier.
