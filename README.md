@@ -13,7 +13,7 @@ PyTorch implementation of four neural image compression models of [**Transformer
 
 ## Pretrained Models
 Models are trained with rate-distortion objective of $R+\lambda D$ with fixed $\lambda$ value mentioned in the following table.
-| Model | Size | #Param | $\lambda$ | checkpoint | TensorBoard.dev<br>logs | Kodak <br> [bpp] / [dB]| GMACs [^2] <br> (ENC/DEC) | #steps |
+| Model | Size | #Param | $\lambda$ | checkpoint | TensorBoard<br>logs | Kodak <br> [bpp] / [dB]| GMACs [^2] <br> (ENC/DEC) | #steps |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | Conv-Hyperprior	 | "M" | 21.4M |0.01| [link](https://drive.google.com/file/d/1RyDmDDqrIwkVvVvH3HlPfwAoK4jmWY97/view?usp=sharing) | [link](https://huggingface.co/alizafari/Transformer-based-Transform-Coding/tensorboard?params=scalars%26runSelectionState%3DeyJsb2dzL3N3aW50LWNoYXJtIjpmYWxzZSwibG9ncy9zd2ludC1oeXBlcnByaW9yIjpmYWxzZSwibG9ncy9jb252LWNoYXJtIjpmYWxzZSwibG9ncy9jb252LWh5cGVycHJpb3IiOnRydWV9%26tagFilter%3Dvalid#frame) | 0.43 / 33.03| 99 / 350 | 2M |
 | Conv-ChARM	 | "M" | 29.1M | 0.01 | [link](https://drive.google.com/file/d/1_UwLe_hwxKDnT-Nd4jrBTZdqFNygK0j2/view?usp=sharing) | [link](https://huggingface.co/alizafari/Transformer-based-Transform-Coding/tensorboard?params=scalars%26runSelectionState%3DeyJsb2dzL3N3aW50LWNoYXJtIjpmYWxzZSwibG9ncy9zd2ludC1oeXBlcnByaW9yIjpmYWxzZSwibG9ncy9jb252LWNoYXJtIjp0cnVlLCJsb2dzL2NvbnYtaHlwZXJwcmlvciI6ZmFsc2V9%26tagFilter%3Dvalid#frame) | 0.41 / 33.17| 111 / 361 | 2M |
